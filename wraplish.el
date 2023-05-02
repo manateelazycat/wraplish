@@ -82,7 +82,7 @@
   "Wraplish group."
   :group 'applications)
 
-(defcustom wraplish-add-space-after-comma t
+(defcustom wraplish-add-space-after-comma nil
   "Whether to add spaces after commas, default is non-nil"
   :type 'boolean
   :group 'wraplish)
