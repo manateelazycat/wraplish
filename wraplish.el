@@ -251,8 +251,8 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
              wraplish-first-call-args)
     (wraplish-deferred-chain
       (wraplish-epc-call-deferred wraplish-epc-process
-                                   (read wraplish-first-call-method)
-                                   wraplish-first-call-args)
+                                  (read wraplish-first-call-method)
+                                  wraplish-first-call-args)
       (setq wraplish-first-call-method nil)
       (setq wraplish-first-call-args nil)
       )))
@@ -287,13 +287,12 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
   '((before-change-functions wraplish-monitor-before-change nil t)
     (after-change-functions wraplish-monitor-after-change nil t)
     (kill-buffer-hook wraplish-close-buffer nil t)
-    (before-revert-hook wraplish-close-buffer nil t)
-    (post-self-insert-hook wraplish-monitor-post-self-insert 90 t)))
+    (before-revert-hook wraplish-close-buffer nil t)))
 
 (defvar-local wraplish--before-change-begin-pos nil)
 (defvar-local wraplish--before-change-end-pos nil)
 
-(defvar wraplish-last-change-position nil)
+(defvar-local wraplish--sync-flag nil)
 
 (defun wraplish--point-position (pos)
   "Get position of POS."
@@ -322,40 +321,26 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
   (when (and (not wraplish-revert-buffer-flag)
              (not wraplish-insert-space-flag))
     (let ((this-command-string (format "%s" this-command)))
-      (setq wraplish-last-change-position (list (current-buffer) (buffer-chars-modified-tick) (point)))
+      ;; Don't send `change_file' request if current command match blacklist or current command is delete command.
+      (if (or (member this-command-string '("query-replace" "undo" "undo-redo" "undo-tree-undo" "undo-tree-redo"))
+              ;; Is delete command.
+              (> length 0))
+          ;; Set `wraplish--sync-flag' to non-nil to sync file in next loop.
+          (setq-local wraplish--sync-flag t)
 
-      (wraplish-call-async "change_buffer"
-                           (buffer-name)
-                           wraplish--before-change-begin-pos
-                           wraplish--before-change-end-pos
-                           (buffer-substring-no-properties begin end)
-                           (buffer-chars-modified-tick)
-                           ))))
+        (wraplish-call-async "change_buffer"
+                             (buffer-name)
+                             wraplish--before-change-begin-pos
+                             wraplish--before-change-end-pos
+                             (buffer-substring-no-properties begin end)
+                             (buffer-chars-modified-tick)
+                             wraplish--sync-flag
+                             )
+
+        (setq-local wraplish--sync-flag nil)))))
 
 (defun wraplish-close-buffer ()
   (wraplish-call-async "close_buffer" (buffer-name)))
-
-(defun wraplish-monitor-post-self-insert ()
-  ;; Make sure this function be called after `electric-pair-mode'
-  ;; `smartparens-mode' or something similar if they are enabled.
-  ;;
-  ;; Because pairing parethness or quotes will call `after-change-functions'
-  ;; multiple times. For example: (| represents the cursor)
-  ;;
-  ;;         dic|
-  ;;
-  ;; Press `[', then the following situation will be observed in
-  ;; `wraplish-monitor-after-change':
-  ;;
-  ;;         dic[|
-  ;;         dic|
-  ;;         dic[|
-  ;;         dic[]|
-  ;;
-  ;; The last position of cursor is wrong, that makes a misjudgment in
-  ;; `wraplish-try-completion'.
-  (setq wraplish-last-change-position
-        (list (current-buffer) (buffer-chars-modified-tick) (point))))
 
 (defun wraplish--get-buffer-content-func (buffer-name)
   "Get buffer content for lsp. BUFFER-NAME is name eval from (buffer-name)."
@@ -371,9 +356,9 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
       (dolist (position (reverse space-positions))
         (goto-char (1+ position))
         (unless (equal (char-after) ?\ )
-          (insert " "))))
+          (insert " ")))))
 
-    (wraplish-call-async "sync_buffer" buffer-name))
+  (wraplish-call-async "sync_buffer" buffer-name)
 
   (setq-local wraplish-insert-space-flag nil))
 

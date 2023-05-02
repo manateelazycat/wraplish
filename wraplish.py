@@ -112,10 +112,11 @@ class Wraplish:
             logger.error(traceback.format_exc())
 
     @threaded
-    def change_buffer(self, buffer_name, begin, end, content, ticker):
-        if buffer_name not in self.buffer_content_dict:
-            buffer_content = get_emacs_func_result('get-buffer-content', buffer_name)
-            self.buffer_content_dict[buffer_name] = buffer_content
+    def change_buffer(self, buffer_name, begin, end, content, ticker, sync_flag):
+        if sync_flag:
+            self.sync_buffer(buffer_name)
+        elif buffer_name not in self.buffer_content_dict:
+            self.sync_buffer(buffer_name)
         else:
             buffer_content = self.buffer_content_dict[buffer_name]
 
@@ -138,8 +139,7 @@ class Wraplish:
         self.find_space_positions(buffer_name, self.buffer_content_dict[buffer_name], ticker)
 
     def sync_buffer(self, buffer_name):
-        buffer_content = get_emacs_func_result('get-buffer-content', buffer_name)
-        self.buffer_content_dict[buffer_name] = buffer_content
+        self.buffer_content_dict[buffer_name] = get_emacs_func_result('get-buffer-content', buffer_name)
 
     def close_buffer(self, buffer_name):
         if buffer_name in self.buffer_content_dict:
