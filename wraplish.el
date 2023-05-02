@@ -158,10 +158,16 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
 
 (defun wraplish-call-async (method &rest args)
   "Call Python EPC function METHOD and ARGS asynchronously."
-  (wraplish-deferred-chain
-    (wraplish-epc-call-deferred wraplish-epc-process (read method) args)))
+  (if (wraplish-epc-live-p wraplish-epc-process)
+      (wraplish-deferred-chain
+        (wraplish-epc-call-deferred wraplish-epc-process (read method) args))
+    (setq wraplish-first-call-method method)
+    (setq wraplish-first-call-args args)
+    (wraplish-start-process)))
 
 (defvar wraplish-is-starting nil)
+(defvar wraplish-first-call-method nil)
+(defvar wraplish-first-call-args nil)
 
 (defun wraplish-restart-process ()
   "Stop and restart Wraplish process."
@@ -239,7 +245,17 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
                               :connection (wraplish-epc-connect "localhost" wraplish-epc-port)
                               ))
   (wraplish-epc-init-epc-layer wraplish-epc-process)
-  (setq wraplish-is-starting nil))
+  (setq wraplish-is-starting nil)
+
+  (when (and wraplish-first-call-method
+             wraplish-first-call-args)
+    (wraplish-deferred-chain
+      (wraplish-epc-call-deferred wraplish-epc-process
+                                   (read wraplish-first-call-method)
+                                   wraplish-first-call-args)
+      (setq wraplish-first-call-method nil)
+      (setq wraplish-first-call-args nil)
+      )))
 
 ;;;###autoload
 (define-minor-mode wraplish-mode
