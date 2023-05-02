@@ -28,6 +28,10 @@ Wraplish 的原理如下：
   (add-hook hook #'(lambda () (wraplish-mode 1))))
 ```
 
+## 选项
+* `wraplish-add-space-after-comma`: 在逗号后面添加空格， 默认开启
+* `wraplish-add-space-before-markdown-link`: 如果 Markdown 链接的首字母是英文， 并且 Markdown 链接左边是 Unicode， 在 Markdown 链接之前添加空格， 默认开启
+
 ## 反馈问题
 
 关于一些常用问题， 请先阅读 [Wiki](https://github.com/manateelazycat/wraplish/wiki)

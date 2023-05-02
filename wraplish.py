@@ -153,6 +153,12 @@ class Wraplish:
     def find_space_positions(self, buffer_name, text, ticker):
         space_positions = []
 
+        if not hasattr(self, "add_space_after_comma"):
+            (self.add_space_after_comma, self.add_space_before_markdown_link) = get_emacs_vars([
+                "wraplish-add-space-after-comma",
+                "wraplish-add-space-before-markdown-link"
+            ])
+
         # Find positions between English words and Chinese characters or Japanese Kanji
         for match in re.finditer(r'([a-zA-Z])([\u4e00-\u9fff])', text):
             space_positions.append(match.start(2))
@@ -170,12 +176,14 @@ class Wraplish:
             space_positions.append(match.start(2))
 
         # Find positions where a comma (， or ,) is not followed by a space
-        for match in re.finditer(r'(\,|，)(?!\s)', text):
-            space_positions.append(match.end(0))
+        if self.add_space_after_comma:
+            for match in re.finditer(r'(\,|，)(?!\s)', text):
+                space_positions.append(match.end(0))
 
         # Find positions where a Unicode character is followed by a Markdown link with link_text starting with an English letter
-        for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
-            space_positions.append(match.start(1) + 1)
+        if self.add_space_before_markdown_link:
+            for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
+                space_positions.append(match.start(1) + 1)
 
         space_positions.sort()
 

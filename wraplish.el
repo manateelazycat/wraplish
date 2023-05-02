@@ -82,6 +82,16 @@
   "Wraplish group."
   :group 'applications)
 
+(defcustom wraplish-add-space-after-comma t
+  "Whether to add spaces after commas, default is non-nil"
+  :type 'boolean
+  :group 'wraplish)
+
+(defcustom wraplish-add-space-before-markdown-link t
+  "Whether to add spaces before markdown-link, default is non-nil"
+  :type 'boolean
+  :group 'wraplish)
+
 (defvar wraplish-server nil
   "The Wraplish Server.")
 
