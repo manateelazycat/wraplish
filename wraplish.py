@@ -154,10 +154,13 @@ class Wraplish:
         space_positions = []
 
         if not hasattr(self, "add_space_after_comma"):
-            (self.add_space_after_comma, self.add_space_before_markdown_link) = get_emacs_vars([
-                "wraplish-add-space-after-comma",
-                "wraplish-add-space-before-markdown-link"
-            ])
+            (self.add_space_after_comma,
+             self.add_space_after_chinese_comma,
+             self.add_space_before_markdown_link) = get_emacs_vars([
+                 "wraplish-add-space-after-comma",
+                 "wraplish-add-space-after-chinese-comma",
+                 "wraplish-add-space-before-markdown-link"
+             ])
 
         # Find positions between English words and Chinese characters or Japanese Kanji
         for match in re.finditer(r'([a-zA-Z])([\u4e00-\u9fff])', text):
@@ -175,12 +178,18 @@ class Wraplish:
         for match in re.finditer(r'((?<=\uac00)[\ud7a3])([a-zA-Z])', text):
             space_positions.append(match.start(2))
 
-        # Find positions where a comma (， or ,) is not followed by a space
+        # Find positions where a comma , is not followed by a space
         if self.add_space_after_comma:
-            for match in re.finditer(r'(\,|，)(?!\s)', text):
+            for match in re.finditer(r'(\,)(?!\s)', text):
                 space_positions.append(match.end(0))
 
-        # Find positions where a Unicode character is followed by a Markdown link with link_text starting with an English letter
+        # Find positions where a comma ， is not followed by a space
+        if self.add_space_after_chinese_comma:
+            for match in re.finditer(r'(，)(?!\s)', text):
+                space_positions.append(match.end(0))
+
+        # Find positions where a Unicode character is followed by a
+        # Markdown link with link_text starting with an English letter
         if self.add_space_before_markdown_link:
             for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
                 space_positions.append(match.start(1) + 1)
