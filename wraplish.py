@@ -169,6 +169,14 @@ class Wraplish:
         for match in re.finditer(r'((?<=\uac00)[\ud7a3])([a-zA-Z])', text):
             space_positions.append(match.start(2))
 
+        # Find positions where a comma (， or ,) is not followed by a space
+        for match in re.finditer(r'(\,|，)(?!\s)', text):
+            space_positions.append(match.end(0))
+
+        # Find positions where a Unicode character is followed by a Markdown link with link_text starting with an English letter
+        for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
+            space_positions.append(match.start(1) + 1)
+
         space_positions.sort()
 
         if ticker == self.buffer_ticker_dict[buffer_name] and len(space_positions) > 0:
