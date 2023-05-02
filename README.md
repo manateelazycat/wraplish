@@ -29,7 +29,8 @@ Wraplish 的原理如下：
 ```
 
 ## 选项
-* `wraplish-add-space-after-comma`: 在逗号后面添加空格， 默认开启
+* `wraplish-add-space-after-comma`: 在英文逗号后面添加空格， 默认开启
+* `wraplish-add-space-after-chinese-comma`: 在中文逗号后面添加空格，默认不开启
 * `wraplish-add-space-before-markdown-link`: 如果 Markdown 链接的首字母是英文， 并且 Markdown 链接左边是 Unicode， 在 Markdown 链接之前添加空格， 默认开启
 
 ## 反馈问题
