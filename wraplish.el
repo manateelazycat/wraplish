@@ -87,6 +87,11 @@
   :type 'boolean
   :group 'wraplish)
 
+(defcustom wraplish-add-space-after-chinese-comma nil
+  "Whether to add spaces after Chinese commas, default is nil"
+  :type 'boolean
+  :group 'wraplish)
+
 (defcustom wraplish-add-space-before-markdown-link t
   "Whether to add spaces before markdown-link, default is non-nil"
   :type 'boolean
