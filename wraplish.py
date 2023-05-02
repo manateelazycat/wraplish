@@ -162,12 +162,12 @@ class Wraplish:
                  "wraplish-add-space-before-markdown-link"
              ])
 
-        # Find positions between English words and Chinese characters or Japanese Kanji
-        for match in re.finditer(r'([a-zA-Z])([\u4e00-\u9fff])', text):
+        # Find positions between English words/Arabic numbers and Chinese characters or Japanese Kanji
+        for match in re.finditer(r'([0-9a-zA-Z])([\u4e00-\u9fff])', text):
             space_positions.append(match.start(2))
 
-        # Find positions between Chinese characters or Japanese Kanji and English words
-        for match in re.finditer(r'([\u4e00-\u9fff])([a-zA-Z])', text):
+        # Find positions between Chinese characters or Japanese Kanji and English words/Arabic numbers
+        for match in re.finditer(r'([\u4e00-\u9fff])([0-9a-zA-Z])', text):
             space_positions.append(match.start(2))
 
         # Find positions between English words and Korean Hangul characters
