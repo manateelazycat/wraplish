@@ -21,7 +21,6 @@ Wraplish 的原理如下：
 (add-to-list 'load-path "<path-to-wraplish>")
 
 (require 'wraplish)
-(global-wraplish-mode)
 
 (dolist (hook (list
                'markdown-mode-hook
