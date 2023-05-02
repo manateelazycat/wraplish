@@ -1,6 +1,8 @@
 # Wraplish
 
-Wraplish 是一个在 Unicode 与英文之间加上空格的插件，类似于 [pangu-spacing](https://github.com/coldnew/pangu-spacing) 这个插件。主要的区别是 Wraplish 使用 Python 多线程技术来分析 Emacs 的文本，避免 Elisp 代码分析大文本时产生过多的 GC 对象卡住 Emacs。
+Wraplish 是一个在 Unicode 与英文之间加上空格的 Emacs 插件。
+
+这个插件类似于 [pangu-spacing](https://github.com/coldnew/pangu-spacing) 的效果， 主要的区别是 Wraplish 使用 Python 多线程技术来分析 Emacs 的文本，避免 Elisp 代码分析大文本时产生过多的 GC 对象卡住 Emacs。
 
 ## 原理
 
