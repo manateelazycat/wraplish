@@ -36,6 +36,16 @@ Wraplish 的原理如下：
 * `wraplish-add-space-after-pause-symbol`: 在顿号后面添加空格， 默认不开启
 * `wraplish-add-space-before-markdown-link`: 如果 Markdown 链接的首字母是英文， 并且 Markdown 链接左边是 Unicode， 在 Markdown 链接之前添加空格， 默认开启
 
+我们阅读很多中文纸质书籍的时候， 你会发现， 这些书籍为了提高阅读的流畅性， 他们除了中英文单词之间添加空格外， 它们还会在逗号、 句号、 引号和顿号后面都增加空格。 所以我推荐大家像我这样进行设置：
+
+```elisp
+(setq wraplish-add-space-after-comma t)
+(setq wraplish-add-space-after-chinese-comma t)
+(setq wraplish-add-space-after-chinese-period t)
+(setq wraplish-add-space-after-quote t)
+(setq wraplish-add-space-after-pause-symbol t)
+```
+
 ## 反馈问题
 
 关于一些常用问题， 请先阅读
