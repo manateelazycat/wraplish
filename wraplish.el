@@ -83,7 +83,7 @@
   :group 'applications)
 
 (defcustom wraplish-add-space-after-comma nil
-  "Whether to add spaces after commas, default is non-nil"
+  "Whether to add spaces after commas, default is nil"
   :type 'boolean
   :group 'wraplish)
 
@@ -98,12 +98,12 @@
   :group 'wraplish)
 
 (defcustom wraplish-add-space-after-quote nil
-  "Whether to add spaces after quote, default is non-nil"
+  "Whether to add spaces after quote, default is nil"
   :type 'boolean
   :group 'wraplish)
 
 (defcustom wraplish-add-space-after-pause-symbol nil
-  "Whether to add spaces after pause symbol, default is non-nil"
+  "Whether to add spaces after pause symbol, default is nil"
   :type 'boolean
   :group 'wraplish)
 
