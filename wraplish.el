@@ -1,18 +1,18 @@
 ;;; wraplish.el --- LSP bridge  -*- lexical-binding: t -*-
 
 ;; Filename: wraplish.el
-;; Description: LSP bridge
+;; Description: Add space between Chinese and English
 ;; Author: Andy Stewart <lazycat.manatee@gmail.com>
 ;; Maintainer: Andy Stewart <lazycat.manatee@gmail.com>
-;; Copyright (C) 2018, Andy Stewart, all rights reserved.
-;; Created: 2018-06-15 14:10:12
+;; Copyright (C) 2023, Andy Stewart, all rights reserved.
+;; Created: 2023-05-02 14:10:12
 ;; Version: 0.5
-;; Last-Updated: 2022-10-10 15:23:53 +0800
-;;           By: Gong Qijian
+;; Last-Updated: 2023-05-02 15:23:53 +0800
+;;           By: Andy Stewart
 ;; URL: https://github.com/manateelazycat/wraplish
 ;; Keywords:
 ;; Compatibility: emacs-version >= 28
-;; Package-Requires: ((emacs "28") (posframe "1.1.7") (markdown-mode "2.6"))
+;; Package-Requires: ((emacs "28") (markdown-mode "2.6"))
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -83,7 +83,7 @@
   :group 'applications)
 
 (defcustom wraplish-add-space-after-comma nil
-  "Whether to add spaces after commas, default is non-nil"
+  "Whether to add spaces after commas, default is nil"
   :type 'boolean
   :group 'wraplish)
 
@@ -98,12 +98,12 @@
   :group 'wraplish)
 
 (defcustom wraplish-add-space-after-quote nil
-  "Whether to add spaces after quote, default is non-nil"
+  "Whether to add spaces after quote, default is nil"
   :type 'boolean
   :group 'wraplish)
 
 (defcustom wraplish-add-space-after-pause-symbol nil
-  "Whether to add spaces after pause symbol, default is non-nil"
+  "Whether to add spaces after pause symbol, default is nil"
   :type 'boolean
   :group 'wraplish)
 
