@@ -397,9 +397,6 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
   (setq-local wraplish-revert-buffer-flag nil))
 (advice-add #'revert-buffer :around #'wraplish--revert-buffer-advisor)
 
-(unless wraplish-is-starting
-  (wraplish-start-process))
-
 (provide 'wraplish)
 
 ;;; wraplish.el ends here
