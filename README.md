@@ -31,7 +31,6 @@ Wraplish 的原理如下：
 ## 选项
 * `wraplish-add-space-after-comma`: 在英文逗号后面添加空格， 默认不开启
 * `wraplish-add-space-after-chinese-comma`: 在中文逗号后面添加 空 格， 默认不开启
-* `wraplish-add-space-after-period`: 在英文句号后面添加空格， 默认不开启
 * `wraplish-add-space-after-chinese-period`: 在中文句号后面 添加 空格， 默认不开启
 * `wraplish-add-space-after-quote`: 在引号后面添加空格， 默认不开启
 * `wraplish-add-space-after-pause-symbol`: 在顿号后面添加空格， 默认不开启

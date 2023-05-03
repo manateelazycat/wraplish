@@ -156,7 +156,6 @@ class Wraplish:
         if not hasattr(self, "add_space_after_comma"):
             (self.add_space_after_comma,
              self.add_space_after_chinese_comma,
-             self.add_space_after_period,
              self.add_space_after_chinese_period,
              self.add_space_after_quote,
              self.add_space_after_pause_symbol,
@@ -164,7 +163,6 @@ class Wraplish:
                  "wraplish-add-space-after-comma",
                  "wraplish-add-space-after-chinese-comma",
                  "wraplish-add-space-before-markdown-link",
-                 "wraplish-add-space-after-period",
                  "wraplish-add-space-after-quote",
                  "wraplish-add-space-after-pause-symbol",
                  "wraplish-add-space-after-chinese-period"
@@ -210,11 +208,6 @@ class Wraplish:
         # Find positions where a comma ， is not followed by a space
         if self.add_space_after_chinese_comma:
             for match in re.finditer(r'(，)(?!\s)', text):
-                space_positions.append(match.end(0))
-
-        # Find positions where a period , is not followed by a space
-        if self.add_space_after_period:
-            for match in re.finditer(r'(\.)(?!\s)', text):
                 space_positions.append(match.end(0))
 
         # Find positions where a period ， is not followed by a space

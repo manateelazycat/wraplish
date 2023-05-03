@@ -92,11 +92,6 @@
   :type 'boolean
   :group 'wraplish)
 
-(defcustom wraplish-add-space-after-period nil
-  "Whether to add spaces after period, default is non-nil"
-  :type 'boolean
-  :group 'wraplish)
-
 (defcustom wraplish-add-space-after-chinese-period nil
   "Whether to add spaces after Chinese period, default is nil"
   :type 'boolean
