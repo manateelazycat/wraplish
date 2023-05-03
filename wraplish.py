@@ -153,20 +153,19 @@ class Wraplish:
     def find_space_positions(self, buffer_name, text, ticker):
         space_positions = []
 
-        if not hasattr(self, "add_space_after_comma"):
-            (self.add_space_after_comma,
-             self.add_space_after_chinese_comma,
-             self.add_space_after_chinese_period,
-             self.add_space_after_quote,
-             self.add_space_after_pause_symbol,
-             self.add_space_before_markdown_link) = get_emacs_vars([
-                 "wraplish-add-space-after-comma",
-                 "wraplish-add-space-after-chinese-comma",
-                 "wraplish-add-space-after-chinese-period"
-                 "wraplish-add-space-after-quote",
-                 "wraplish-add-space-after-pause-symbol",
-                 "wraplish-add-space-before-markdown-link"
-             ])
+        (self.add_space_after_comma,
+         self.add_space_after_chinese_comma,
+         self.add_space_after_chinese_period,
+         self.add_space_after_quote,
+         self.add_space_after_pause_symbol,
+         self.add_space_before_markdown_link) = get_emacs_vars([
+             "wraplish-add-space-after-comma",
+             "wraplish-add-space-after-chinese-comma",
+             "wraplish-add-space-after-chinese-period",
+             "wraplish-add-space-after-quote",
+             "wraplish-add-space-after-pause-symbol",
+             "wraplish-add-space-before-markdown-link"
+         ])
 
         # Find positions between English words and Chinese characters or Japanese Kanji
         for match in re.finditer(r'([a-zA-Z])([\u4e00-\u9fff])', text):
