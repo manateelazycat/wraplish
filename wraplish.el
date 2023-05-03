@@ -92,6 +92,26 @@
   :type 'boolean
   :group 'wraplish)
 
+(defcustom wraplish-add-space-after-period nil
+  "Whether to add spaces after period, default is non-nil"
+  :type 'boolean
+  :group 'wraplish)
+
+(defcustom wraplish-add-space-after-chinese-period nil
+  "Whether to add spaces after Chinese period, default is nil"
+  :type 'boolean
+  :group 'wraplish)
+
+(defcustom wraplish-add-space-after-quote nil
+  "Whether to add spaces after quote, default is non-nil"
+  :type 'boolean
+  :group 'wraplish)
+
+(defcustom wraplish-add-space-after-pause-symbol nil
+  "Whether to add spaces after pause symbol, default is non-nil"
+  :type 'boolean
+  :group 'wraplish)
+
 (defcustom wraplish-add-space-before-markdown-link t
   "Whether to add spaces before markdown-link, default is non-nil"
   :type 'boolean

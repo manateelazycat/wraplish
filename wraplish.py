@@ -156,10 +156,18 @@ class Wraplish:
         if not hasattr(self, "add_space_after_comma"):
             (self.add_space_after_comma,
              self.add_space_after_chinese_comma,
+             self.add_space_after_period,
+             self.add_space_after_chinese_period,
+             self.add_space_after_quote,
+             self.add_space_after_pause_symbol,
              self.add_space_before_markdown_link) = get_emacs_vars([
                  "wraplish-add-space-after-comma",
                  "wraplish-add-space-after-chinese-comma",
-                 "wraplish-add-space-before-markdown-link"
+                 "wraplish-add-space-before-markdown-link",
+                 "wraplish-add-space-after-period",
+                 "wraplish-add-space-after-quote",
+                 "wraplish-add-space-after-pause-symbol",
+                 "wraplish-add-space-after-chinese-period"
              ])
 
         # Find positions between English words and Chinese characters or Japanese Kanji
@@ -178,6 +186,22 @@ class Wraplish:
         for match in re.finditer(r'((?<=\uac00)[\ud7a3])([a-zA-Z])', text):
             space_positions.append(match.start(2))
 
+        # Find positions between Arabic numbers and Chinese characters or Japanese Kanji
+        for match in re.finditer(r'([0-9])([\u4e00-\u9fff])', text):
+            space_positions.append(match.start(2))
+
+        # Find positions between Chinese characters or Japanese Kanji and Arabic numbers
+        for match in re.finditer(r'([\u4e00-\u9fff])([0-9])', text):
+            space_positions.append(match.start(2))
+
+        # Find positions between Arabic numbers and Korean Hangul characters
+        for match in re.finditer(r'([0-9])([\uac00-\ud7a3])', text):
+            space_positions.append(match.start(2))
+
+        # Find positions between Korean Hangul characters and Arabic numbers
+        for match in re.finditer(r'((?<=\uac00)[\ud7a3])([0-9])', text):
+            space_positions.append(match.start(2))
+
         # Find positions where a comma , is not followed by a space
         if self.add_space_after_comma:
             for match in re.finditer(r'(\,)(?!\s)', text):
@@ -188,11 +212,34 @@ class Wraplish:
             for match in re.finditer(r'(，)(?!\s)', text):
                 space_positions.append(match.end(0))
 
+        # Find positions where a period , is not followed by a space
+        if self.add_space_after_period:
+            for match in re.finditer(r'(\.)(?!\s)', text):
+                space_positions.append(match.end(0))
+
+        # Find positions where a period ， is not followed by a space
+        if self.add_space_after_chinese_period:
+            for match in re.finditer(r'(。)(?!\s)', text):
+                space_positions.append(match.end(0))
+
         # Find positions where a Unicode character is followed by a
         # Markdown link with link_text starting with an English letter
         if self.add_space_before_markdown_link:
             for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
                 space_positions.append(match.start(1) + 1)
+
+        # Add spaces around double or single quotes, unless followed by a punctuation mark
+        if self.add_space_after_quote:
+            # Add spaces around double or single quotes, unless followed by a punctuation mark
+            for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])([\'\"“‘])(?![，。！？\.,!?\)])', text):
+                space_positions.append(match.start(2))
+            for match in re.finditer(r'(?<![，。！？\.,!?\(])([\'\"”’])([\u4e00-\u9fff\uac00-\ud7a3])', text):
+                space_positions.append(match.end(1))
+
+        # Add spaces after Chinese enumeration comma (、) if there's no space already
+        if self.add_space_after_pause_symbol:
+            for match in re.finditer(r'(、)(?!\s)', text):
+                space_positions.append(match.end(0))
 
         space_positions.sort()
 
