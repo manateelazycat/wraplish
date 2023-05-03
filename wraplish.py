@@ -162,10 +162,10 @@ class Wraplish:
              self.add_space_before_markdown_link) = get_emacs_vars([
                  "wraplish-add-space-after-comma",
                  "wraplish-add-space-after-chinese-comma",
-                 "wraplish-add-space-before-markdown-link",
+                 "wraplish-add-space-after-chinese-period"
                  "wraplish-add-space-after-quote",
                  "wraplish-add-space-after-pause-symbol",
-                 "wraplish-add-space-after-chinese-period"
+                 "wraplish-add-space-before-markdown-link"
              ])
 
         # Find positions between English words and Chinese characters or Japanese Kanji
