@@ -17,7 +17,7 @@ Wraplish 的原理如下：
 1. 安装 Emacs 28 及以上版本
 2. 安装 Python 依赖: `pip3 install epc sexpdata six`
 3. 用 `git clone` 下载此仓库，并替换下面配置中的 load-path 路径
-4. 把下面代码加入到你的配置文件 ~/ . emacs 中：
+4. 把下面代码加入到你的配置文件 ~/.emacs 中：
 
 ```elisp
 (add-to-list 'load-path "<path-to-wraplish>")
@@ -43,7 +43,7 @@ Wraplish 的原理如下：
 
 请用命令 `emacs -q` 并只添加 Wraplish 配置做一个对比测试，如果 `emacs -q` 可以正常工作，请检查你个人的配置文件。
 
-如果`emacs -q`环境下问题依旧，请到[这里](https: //github.com/manateelazycat/wraplish/issues/new)反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue，那里面有很多线索 可以帮助我们排查问题。 。
+如果 `emacs -q` 环境下问题依旧，请到[这里](https://github.com/manateelazycat/wraplish/issues/new)反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue，那里面有很多线索 可以帮助我们排查问题。
 
 - 如果你遇到崩溃的问题, 请用下面的方式来收集崩溃信息:
 
