@@ -191,7 +191,7 @@ class Wraplish:
         for match in re.finditer(r'((?<=\uac00)[\ud7a3])([0-9])', text):
             space_positions.append(match.start(2))
 
-        # Find positions where a punctuation is not followed by a space
+        # Find positions where a Chinese punctuation is not followed by a space or another Chinese punctuation
         if self.add_space_after_chinese_punctuation:
             chinese_punctuations = r'，|。|；|：|？|！|、'
             for match in re.finditer(r'({})(?![\s\"{}])'.format(chinese_punctuations, chinese_punctuations), text):
