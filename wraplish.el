@@ -97,11 +97,6 @@
   :type 'boolean
   :group 'wraplish)
 
-(defcustom wraplish-add-space-after-quote nil
-  "Whether to add spaces after quote, default is nil"
-  :type 'boolean
-  :group 'wraplish)
-
 (defcustom wraplish-add-space-after-pause-symbol nil
   "Whether to add spaces after pause symbol, default is nil"
   :type 'boolean

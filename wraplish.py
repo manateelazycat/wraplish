@@ -156,13 +156,11 @@ class Wraplish:
         (self.add_space_after_comma,
          self.add_space_after_chinese_comma,
          self.add_space_after_chinese_period,
-         self.add_space_after_quote,
          self.add_space_after_pause_symbol,
          self.add_space_before_markdown_link) = get_emacs_vars([
              "wraplish-add-space-after-comma",
              "wraplish-add-space-after-chinese-comma",
              "wraplish-add-space-after-chinese-period",
-             "wraplish-add-space-after-quote",
              "wraplish-add-space-after-pause-symbol",
              "wraplish-add-space-before-markdown-link"
          ])
@@ -219,14 +217,6 @@ class Wraplish:
         if self.add_space_before_markdown_link:
             for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
                 space_positions.append(match.start(1) + 1)
-
-        # Add spaces around double or single quotes, unless followed by a punctuation mark
-        if self.add_space_after_quote:
-            # Add spaces around double or single quotes, unless followed by a punctuation mark
-            for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])([\'\"“‘])(?![，。！？\.,!?\)])', text):
-                space_positions.append(match.start(2))
-            for match in re.finditer(r'(?<![，。！？\.,!?\(])([\'\"”’])([\u4e00-\u9fff\uac00-\ud7a3])', text):
-                space_positions.append(match.end(1))
 
         # Add spaces after Chinese enumeration comma (、) if there's no space already
         if self.add_space_after_pause_symbol:
