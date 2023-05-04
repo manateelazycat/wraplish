@@ -157,12 +157,14 @@ class Wraplish:
          self.add_space_after_chinese_comma,
          self.add_space_after_chinese_period,
          self.add_space_after_chinese_semicolon,
+         self.add_space_after_chinese_colon,
          self.add_space_after_pause_symbol,
          self.add_space_before_markdown_link) = get_emacs_vars([
              "wraplish-add-space-after-comma",
              "wraplish-add-space-after-chinese-comma",
              "wraplish-add-space-after-chinese-period",
              "wraplish-add-space-after-chinese-semicolon",
+             "wraplish-add-space-after-chinese-colon",
              "wraplish-add-space-after-pause-symbol",
              "wraplish-add-space-before-markdown-link"
          ])
@@ -218,6 +220,11 @@ class Wraplish:
         if self.add_space_after_chinese_semicolon:
             for match in re.finditer(r'(；)(?!\s)', text):
                 space_positions.append(match.end(0))
+
+        # Add spaces after colon (: or ：) if followed by a Unicode character
+        if self.add_space_after_chinese_colon:
+            for match in re.finditer(r'(:|：)([\u4e00-\u9fff\uac00-\ud7a3])', text):
+                space_positions.append(match.start(2))
 
         # Find positions where a Unicode character is followed by a
         # Markdown link with link_text starting with an English letter

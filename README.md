@@ -33,6 +33,7 @@ Wraplish 的原理如下：
 * `wraplish-add-space-after-chinese-comma`: 在中文逗号后面添加空格， 默认不开启
 * `wraplish-add-space-after-chinese-period`: 在中文句号后面添加空格， 默认不开启
 * `wraplish-add-space-after-chinese-semicolon`: 在中文分号后面添加空格， 默认不开启
+* `wraplish-add-space-after-chinese-colon`: 在中文冒号后面添加空格， 默认不开启
 * `wraplish-add-space-after-pause-symbol`: 在顿号后面添加空格， 默认不开启
 * `wraplish-add-space-before-markdown-link`: 如果 Markdown 链接的首字母是英文， 并且 Markdown 链接左边是 Unicode， 在 Markdown 链接之前添加空格， 默认开启
 
@@ -43,6 +44,7 @@ Wraplish 的原理如下：
 (setq wraplish-add-space-after-chinese-comma t)
 (setq wraplish-add-space-after-chinese-period t)
 (setq wraplish-add-space-after-chinese-semicolon t)
+(setq wraplish-add-space-after-chinese-colon t)
 (setq wraplish-add-space-after-pause-symbol t)
 ```
 
