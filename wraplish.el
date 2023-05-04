@@ -82,33 +82,8 @@
   "Wraplish group."
   :group 'applications)
 
-(defcustom wraplish-add-space-after-comma nil
-  "Whether to add spaces after commas, default is nil"
-  :type 'boolean
-  :group 'wraplish)
-
-(defcustom wraplish-add-space-after-chinese-comma nil
+(defcustom wraplish-add-space-after-chinese-punctuation nil
   "Whether to add spaces after Chinese commas, default is nil"
-  :type 'boolean
-  :group 'wraplish)
-
-(defcustom wraplish-add-space-after-chinese-period nil
-  "Whether to add spaces after Chinese period, default is nil"
-  :type 'boolean
-  :group 'wraplish)
-
-(defcustom wraplish-add-space-after-chinese-semicolon nil
-  "Whether to add spaces after Chinese semicolon, default is nil"
-  :type 'boolean
-  :group 'wraplish)
-
-(defcustom wraplish-add-space-after-chinese-colon nil
-  "Whether to add spaces after Chinese colon, default is nil"
-  :type 'boolean
-  :group 'wraplish)
-
-(defcustom wraplish-add-space-after-pause-symbol nil
-  "Whether to add spaces after pause symbol, default is nil"
   :type 'boolean
   :group 'wraplish)
 

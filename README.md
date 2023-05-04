@@ -2,7 +2,7 @@
 
 Wraplish 是一个在 Unicode 与英文之间加上空格的 Emacs 插件。
 
-这个插件类似于 [pangu-spacing](https://github.com/coldnew/pangu-spacing) 的效果， 主要的区别是 Wraplish 使用 Python 多线程技术来分析 Emacs 的文本， 避免 Elisp 代码分析大文本时产生过多的 GC 对象卡住 Emacs。
+这个插件类似于 [pangu-spacing](https: //github.com/coldnew/pangu-spacing) 的效果， 主要的区别是 Wraplish 使用 Python 多线程技术来分析 Emacs 的文本， 避免 Elisp 代码分析大文本时产生过多的 GC 对象卡住 Emacs。
 
 ## 原理
 
@@ -29,33 +29,17 @@ Wraplish 的原理如下：
 ```
 
 ## 选项
-* `wraplish-add-space-after-comma`: 在英文逗号后面添加空格， 默认不开启
-* `wraplish-add-space-after-chinese-comma`: 在中文逗号后面添加空格， 默认不开启
-* `wraplish-add-space-after-chinese-period`: 在中文句号后面添加空格， 默认不开启
-* `wraplish-add-space-after-chinese-semicolon`: 在中文分号后面添加空格， 默认不开启
-* `wraplish-add-space-after-chinese-colon`: 在中文冒号后面添加空格， 默认不开启
-* `wraplish-add-space-after-pause-symbol`: 在顿号后面添加空格， 默认不开启
+* `wraplish-add-space-after-chinese-punctuation`: 在中文标点后面添加空格， 默认不开启, 我们阅读很多中文纸质书籍的时候， 你会发现， 这些书籍为了提高阅读的流畅性， 他们除了中英文单词之间添加空格外， 它们还会在中文标点后面增加空格， 推荐大家在自己的中文文章中开启这个选项
 * `wraplish-add-space-before-markdown-link`: 如果 Markdown 链接的首字母是英文， 并且 Markdown 链接左边是 Unicode， 在 Markdown 链接之前添加空格， 默认开启
-
-我们阅读很多中文纸质书籍的时候， 你会发现， 这些书籍为了提高阅读的流畅性， 他们除了中英文单词之间添加空格外， 它们还会在逗号、 句号、 引号和顿号后面都增加空格。 所以我推荐大家像我这样进行设置：
-
-```elisp
-(setq wraplish-add-space-after-comma t)
-(setq wraplish-add-space-after-chinese-comma t)
-(setq wraplish-add-space-after-chinese-period t)
-(setq wraplish-add-space-after-chinese-semicolon t)
-(setq wraplish-add-space-after-chinese-colon t)
-(setq wraplish-add-space-after-pause-symbol t)
-```
 
 ## 反馈问题
 
 关于一些常用问题， 请先阅读
-[Wiki](https://github.com/manateelazycat/wraplish/wiki)
+[Wiki](https: //github.com/manateelazycat/wraplish/wiki)
 
 请用命令 `emacs -q` 并只添加 Wraplish 配置做一个对比测试， 如果 `emacs -q` 可以正常工作， 请检查你个人的配置文件。
 
-如果 `emacs -q` 环境下问题依旧， 请到[这里](https://github.com/manateelazycat/wraplish/issues/new)反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue， 那里面有很多线索 可以帮助我们排查问题。
+如果 `emacs -q` 环境下问题依旧， 请到[这里](https: //github.com/manateelazycat/wraplish/issues/new)反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue， 那里面有很多线索 可以帮助我们排查问题。
 
 - 如果你遇到崩溃的问题, 请用下面的方式来收集崩溃信息:
 
@@ -70,6 +54,6 @@ Wraplish 的原理如下：
 
 ## 贡献者
 
-<a href = "https://github.com/manateelazycat/wraplish/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo=manateelazycat/wraplish"/>
+<a href = "https: //github.com/manateelazycat/wraplish/graphs/contributors">
+  <img src = "https: //contrib.rocks/image?repo=manateelazycat/wraplish"/>
 </a>

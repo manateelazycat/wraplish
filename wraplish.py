@@ -153,19 +153,9 @@ class Wraplish:
     def find_space_positions(self, buffer_name, text, ticker):
         space_positions = []
 
-        (self.add_space_after_comma,
-         self.add_space_after_chinese_comma,
-         self.add_space_after_chinese_period,
-         self.add_space_after_chinese_semicolon,
-         self.add_space_after_chinese_colon,
-         self.add_space_after_pause_symbol,
+        (self.add_space_after_chinese_punctuation,
          self.add_space_before_markdown_link) = get_emacs_vars([
-             "wraplish-add-space-after-comma",
-             "wraplish-add-space-after-chinese-comma",
-             "wraplish-add-space-after-chinese-period",
-             "wraplish-add-space-after-chinese-semicolon",
-             "wraplish-add-space-after-chinese-colon",
-             "wraplish-add-space-after-pause-symbol",
+             "wraplish-add-space-after-chinese-punctuation",
              "wraplish-add-space-before-markdown-link"
          ])
 
@@ -201,41 +191,16 @@ class Wraplish:
         for match in re.finditer(r'((?<=\uac00)[\ud7a3])([0-9])', text):
             space_positions.append(match.start(2))
 
-        # Find positions where a comma , is not followed by a space
-        if self.add_space_after_comma:
-            for match in re.finditer(r'(\,)(?!\s)', text):
+        # Find positions where a punctuation is not followed by a space
+        if self.add_space_after_chinese_punctuation:
+            for match in re.finditer(r'(，|。|；|：|？|！|、)(?!\s)', text):
                 space_positions.append(match.end(0))
-
-        # Find positions where a comma ， is not followed by a space
-        if self.add_space_after_chinese_comma:
-            for match in re.finditer(r'(，)(?!\s)', text):
-                space_positions.append(match.end(0))
-
-        # Find positions where a period ， is not followed by a space
-        if self.add_space_after_chinese_period:
-            for match in re.finditer(r'(。)(?!\s)', text):
-                space_positions.append(match.end(0))
-
-        # Find positions where a semicolon ， is not followed by a space
-        if self.add_space_after_chinese_semicolon:
-            for match in re.finditer(r'(；)(?!\s)', text):
-                space_positions.append(match.end(0))
-
-        # Add spaces after colon (: or ：) if followed by a Unicode character
-        if self.add_space_after_chinese_colon:
-            for match in re.finditer(r'(:|：)([\u4e00-\u9fff\uac00-\ud7a3])', text):
-                space_positions.append(match.start(2))
 
         # Find positions where a Unicode character is followed by a
         # Markdown link with link_text starting with an English letter
         if self.add_space_before_markdown_link:
             for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
                 space_positions.append(match.start(1) + 1)
-
-        # Add spaces after Chinese enumeration comma (、) if there's no space already
-        if self.add_space_after_pause_symbol:
-            for match in re.finditer(r'(、)(?!\s)', text):
-                space_positions.append(match.end(0))
 
         space_positions.sort()
 
