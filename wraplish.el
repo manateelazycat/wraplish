@@ -97,6 +97,11 @@
   :type 'boolean
   :group 'wraplish)
 
+(defcustom wraplish-add-space-after-chinese-semicolon nil
+  "Whether to add spaces after Chinese semicolon, default is nil"
+  :type 'boolean
+  :group 'wraplish)
+
 (defcustom wraplish-add-space-after-pause-symbol nil
   "Whether to add spaces after pause symbol, default is nil"
   :type 'boolean

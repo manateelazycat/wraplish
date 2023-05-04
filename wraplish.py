@@ -156,11 +156,13 @@ class Wraplish:
         (self.add_space_after_comma,
          self.add_space_after_chinese_comma,
          self.add_space_after_chinese_period,
+         self.add_space_after_chinese_semicolon,
          self.add_space_after_pause_symbol,
          self.add_space_before_markdown_link) = get_emacs_vars([
              "wraplish-add-space-after-comma",
              "wraplish-add-space-after-chinese-comma",
              "wraplish-add-space-after-chinese-period",
+             "wraplish-add-space-after-chinese-semicolon",
              "wraplish-add-space-after-pause-symbol",
              "wraplish-add-space-before-markdown-link"
          ])
@@ -210,6 +212,11 @@ class Wraplish:
         # Find positions where a period ， is not followed by a space
         if self.add_space_after_chinese_period:
             for match in re.finditer(r'(。)(?!\s)', text):
+                space_positions.append(match.end(0))
+
+        # Find positions where a semicolon ， is not followed by a space
+        if self.add_space_after_chinese_semicolon:
+            for match in re.finditer(r'(；)(?!\s)', text):
                 space_positions.append(match.end(0))
 
         # Find positions where a Unicode character is followed by a
