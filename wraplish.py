@@ -193,7 +193,8 @@ class Wraplish:
 
         # Find positions where a punctuation is not followed by a space
         if self.add_space_after_chinese_punctuation:
-            for match in re.finditer(r'(，|。|；|：|？|！|、)(?!\s)', text):
+            chinese_punctuations = r'，|。|；|：|？|！|、'
+            for match in re.finditer(r'({})(?![\s\"{}])'.format(chinese_punctuations, chinese_punctuations), text):
                 space_positions.append(match.end(0))
 
         # Find positions where a Unicode character is followed by a
