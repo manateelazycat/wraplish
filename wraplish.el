@@ -331,8 +331,11 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
   (when (and (not wraplish-revert-buffer-flag)
              (not wraplish-insert-space-flag))
     (let ((this-command-string (format "%s" this-command)))
-      ;; Don't send `change_file' request if current command match blacklist.
-      (if (member this-command-string '("query-replace" "undo" "undo-redo" "undo-tree-undo" "undo-tree-redo"))
+      (if (or
+           ;; Don't send `change_file' request if current command match blacklist.
+           (member this-command-string '("query-replace" "undo" "undo-redo" "undo-tree-undo" "undo-tree-redo"))
+           ;; Don't send `change_file' request if current command is delete command.
+           (> length 0))
           ;; Set `wraplish--sync-flag' to non-nil to sync file in next loop.
           (setq-local wraplish--sync-flag t)
 
