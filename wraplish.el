@@ -334,6 +334,8 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
       (if (or
            ;; Don't send `change_file' request if current command match blacklist.
            (member this-command-string '("query-replace" "undo" "undo-redo" "undo-tree-undo" "undo-tree-redo"))
+           ;; Don't send `change_file' request if current command is vundo command.
+           (string-prefix-p "vundo" this-command-string)
            ;; Don't send `change_file' request if current command is delete command.
            (> length 0))
           ;; Set `wraplish--sync-flag' to non-nil to sync file in next loop.
