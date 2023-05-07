@@ -197,11 +197,16 @@ class Wraplish:
             for match in re.finditer(r'({})(?![\s\“\”\"{}])'.format(chinese_punctuations, chinese_punctuations), text):
                 space_positions.append(match.end(0))
 
-        # Find positions where a Unicode character is followed by a
-        # Markdown link with link_text starting with an English letter
         if self.add_space_before_markdown_link:
+            # Find positions where a Unicode character is followed by a
+            # Markdown link with link_text starting with an English letter
             for match in re.finditer(r'([\u4e00-\u9fff\uac00-\ud7a3])\[(?P<link_text>[a-zA-Z][^\]]+)]\((?P<url>[^\)]+)\)', text):
                 space_positions.append(match.start(1) + 1)
+
+            # Find positions where the closing parenthesis of a Markdown link
+            # is followed by a Unicode character and not a space
+            for match in re.finditer(r'\[(?P<link_text>[^\]]+)]\((?P<url>[^\)]*[a-zA-Z]+)\)([\u4e00-\u9fff\uac00-\ud7a3])(?!\s)', text):
+                space_positions.append(match.start(3))
 
         space_positions.sort()
 
