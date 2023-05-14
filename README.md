@@ -39,7 +39,7 @@ Wraplish 的原理如下：
 
 请用命令 `emacs -q` 并只添加 Wraplish 配置做一个对比测试， 如果 `emacs -q` 可以正常工作， 请检查你个人的配置文件。
 
-如果 `emacs -q` 环境下问题依旧， 请到[这里](https: //github.com/manateelazycat/wraplish/issues/new)反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue， 那里面有很多线索 可以帮助我们排查问题。
+如果 `emacs -q` 环境下问题依旧， 请到[这里](https: //github.com/manateelazycat/wraplish/issues/new) 反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue， 那里面有很多线索 可以帮助我们排查问题。
 
 - 如果你遇到崩溃的问题, 请用下面的方式来收集崩溃信息:
 
@@ -54,6 +54,6 @@ Wraplish 的原理如下：
 
 ## 贡献者
 
-<a href = "https: //github.com/manateelazycat/wraplish/graphs/contributors">
-  <img src = "https: //contrib.rocks/image?repo=manateelazycat/wraplish"/>
+<a href = "https://github.com/manateelazycat/wraplish/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=manateelazycat/wraplish"/>
 </a>
