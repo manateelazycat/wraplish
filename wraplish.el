@@ -252,7 +252,7 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
                               :commands (cons wraplish-internal-process-prog wraplish-internal-process-args)
                               :title (mapconcat 'identity (cons wraplish-internal-process-prog wraplish-internal-process-args) " ")
                               :port wraplish-epc-port
-                              :connection (wraplish-epc-connect "localhost" wraplish-epc-port)
+                              :connection (wraplish-epc-connect "127.0.0.1" wraplish-epc-port)
                               ))
   (wraplish-epc-init-epc-layer wraplish-epc-process)
   (setq wraplish-is-starting nil)
