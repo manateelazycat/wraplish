@@ -364,12 +364,19 @@ Then Wraplish will start by gdb, please send new issue with `*wraplish*' buffer 
 (defun wraplish-insert-spaces (buffer-name space-positions)
   (setq-local wraplish-insert-space-flag t)
 
-  (save-excursion
-    (with-current-buffer buffer-name
-      (dolist (position (reverse space-positions))
-        (goto-char (1+ position))
-        (unless (equal (char-after) ?\ )
-          (insert " ")))))
+  (let ((cursor-point (point))
+        (move-cursor))
+    (save-excursion
+      (with-current-buffer buffer-name
+        (dolist (position (reverse space-positions))
+          (goto-char (1+ position))
+          (unless (equal (char-after) ?\ )
+            (insert " ")
+            (setq move-cursor
+                  (and (= (point) (1+ cursor-point))
+                       (equal (char-after cursor-point) ? )))))))
+    (when move-cursor
+      (forward-char)))
 
   (wraplish-call-async "sync_buffer" buffer-name)
 
