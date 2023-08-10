@@ -194,7 +194,7 @@ class Wraplish:
         # Find positions where a Chinese punctuation is not followed by a space or another Chinese punctuation
         if self.add_space_after_chinese_punctuation:
             chinese_punctuations = r'，|。|；|：|？|！|、'
-            for match in re.finditer(r'({})(?!(\*|[\s\“\”\"{}]))'.format(chinese_punctuations, chinese_punctuations), text):
+            for match in re.finditer(r'({})(?!(\)|）|\*|[\s\“\”\"{}]))'.format(chinese_punctuations, chinese_punctuations), text):
                 space_positions.append(match.end(0))
 
         if self.add_space_before_markdown_link:
