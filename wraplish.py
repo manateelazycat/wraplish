@@ -195,10 +195,10 @@ class Wraplish:
         for match in re.finditer(r'([0-9]+(?:\.[0-9]+)?)%(?=[\u4e00-\u9fff])', text):
             space_positions.append(match.end(0))
 
-        # Find positions where a Chinese punctuation is not followed by a space or another Chinese punctuation
+        # Find positions where a Chinese punctuation is not followed by a space or another Chinese punctuation, or follow \\
         if self.add_space_after_chinese_punctuation:
             chinese_punctuations = r'，|。|；|：|？|！|、'
-            for match in re.finditer(r'({})(?!(\)|）|\*|[\s\“\”\"{}]))'.format(chinese_punctuations, chinese_punctuations), text):
+            for match in re.finditer(r'({})(?!(\)|）|\*|[\s\“\”\"{}]|(?<=：)\\))'.format(chinese_punctuations, chinese_punctuations), text):
                 space_positions.append(match.end(0))
 
         if self.add_space_before_markdown_link:
