@@ -2,7 +2,7 @@
 
 Wraplish 是一个在 Unicode 与英文之间加上空格的 Emacs 插件。
 
-这个插件类似于 [pangu-spacing](https: //github.com/coldnew/pangu-spacing) 的效果， 主要的区别是 Wraplish 使用 Python 多线程技术来分析 Emacs 的文本， 避免 Elisp 代码分析大文本时产生过多的 GC 对象卡住 Emacs。
+这个插件类似于 [pangu-spacing](https://github.com/coldnew/pangu-spacing) 的效果， 主要的区别是 Wraplish 使用 Python 多线程技术来分析 Emacs 的文本， 避免 Elisp 代码分析大文本时产生过多的 GC 对象卡住 Emacs。
 
 ## 原理
 
@@ -35,11 +35,11 @@ Wraplish 的原理如下：
 ## 反馈问题
 
 关于一些常用问题， 请先阅读
-[Wiki](https: //github.com/manateelazycat/wraplish/wiki)
+[Wiki](https://github.com/manateelazycat/wraplish/wiki)
 
 请用命令 `emacs -q` 并只添加 Wraplish 配置做一个对比测试， 如果 `emacs -q` 可以正常工作， 请检查你个人的配置文件。
 
-如果 `emacs -q` 环境下问题依旧， 请到[这里](https: //github.com/manateelazycat/wraplish/issues/new) 反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue， 那里面有很多线索 可以帮助我们排查问题。
+如果 `emacs -q` 环境下问题依旧， 请到[这里](https://github.com/manateelazycat/wraplish/issues/new) 反馈, 并附带 `*wraplish*` 窗口的内容给我们提交 issue， 那里面有很多线索 可以帮助我们排查问题。
 
 - 如果你遇到崩溃的问题, 请用下面的方式来收集崩溃信息:
 
