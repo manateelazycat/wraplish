@@ -92,6 +92,11 @@
   :type 'boolean
   :group 'wraplish)
 
+(defcustom wraplish-add-space-only-for-modified-line nil
+  "只对修改内容添加空格，避免修改整个文件"
+  :type 'boolean
+  :group 'wraplish)
+
 (defvar wraplish-server nil
   "The Wraplish Server.")
 

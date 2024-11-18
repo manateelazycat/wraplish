@@ -31,6 +31,7 @@ Wraplish 的原理如下：
 ## 选项
 * `wraplish-add-space-after-chinese-punctuation`: 在中文标点后面添加空格， 默认不开启, 我们阅读很多中文纸质书籍的时候， 你会发现， 这些书籍为了提高阅读的流畅性， 他们除了中英文单词之间添加空格外， 它们还会在中文标点后面增加空格， 推荐大家在自己的中文文章中开启这个选项
 * `wraplish-add-space-before-markdown-link`: 如果 Markdown 链接的首字母是英文， 并且 Markdown 链接左边是 Unicode， 在 Markdown 链接之前添加空格， 默认开启
+* `wraplish-add-space-only-for-modified-line`: 只对已修改的行触发空格补充操作，防止整个文件被修改，默认关闭。
 
 ## 反馈问题
 

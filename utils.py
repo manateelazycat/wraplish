@@ -234,3 +234,14 @@ def get_position(content, line, character):
     lines = content.split('\n')
     position = sum(len(lines[i]) + 1 for i in range(line)) + character
     return position
+
+def get_modify_position(content, begin_line, end_line, start_char, end_char):
+    """得到当前编辑区的起始行的第一个字符和结束行最后一个字符"""
+    lines = content.split('\n')
+    begin_pos = sum(len(lines[i]) + 1 for i in range(begin_line))
+    end_pos0 = sum(len(lines[i]) + 1 for i in range(end_line))
+    end_pos1 = sum(len(lines[i]) + 1 for i in range(end_line + 1))
+    return begin_pos, begin_pos + start_char, end_pos0 + end_char, end_pos1
+
+def pos_in(pos, start, end):
+    return start <= pos <= end
