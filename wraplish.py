@@ -151,6 +151,43 @@ class Wraplish:
 
     @threaded
     def find_space_positions(self, buffer_name, text, ticker):
+        # 1. Identify protected regions (regions where spaces should not be inserted)
+        protected_regions = []
+
+        # Protect URLs
+        for match in re.finditer(r'https?://[\w.-]+(?:/[\w.-]*)*', text):
+            protected_regions.append((match.start(), match.end()))
+
+        # Protect file paths and domain names more thoroughly
+        for match in re.finditer(r'(?:[\w.-]+/)*[\w.-]+\.[\w.-]+(?:/[\w.-]*)*', text):
+            protected_regions.append((match.start(), match.end()))
+
+        # Protect code identifiers
+        for match in re.finditer(r'[a-zA-Z_]\w*(?:[.-]\w+)*', text):
+            if any(char in match.group() for char in '._-'):
+                protected_regions.append((match.start(), match.end()))
+
+        # Protect code in comments
+        for match in re.finditer(r'#.*$', text, re.MULTILINE):
+            protected_regions.append((match.start(), match.end()))
+
+        # Protect common configuration patterns
+        for match in re.finditer(r'[\w.-]+:\s*[\w.-]+', text):
+            if any(char in match.group() for char in '._-'):
+                protected_regions.append((match.start(), match.end()))
+
+        # Protect code blocks in markdown
+        code_block = False
+        lines = text.split('\n')
+        current_pos = 0
+        for line in lines:
+            if line.strip().startswith('```'):
+                code_block = not code_block
+            if code_block:
+                protected_regions.append((current_pos, current_pos + len(line)))
+            current_pos += len(line) + 1  # +1 for the newlineJ
+
+        # 2. Collect all potential space positions
         space_positions = []
 
         (self.add_space_after_chinese_punctuation,
@@ -214,10 +251,19 @@ class Wraplish:
 
         space_positions.sort()
 
-        if ticker == self.buffer_ticker_dict[buffer_name] and len(space_positions) > 0:
-            eval_in_emacs("wraplish-insert-spaces", buffer_name, space_positions)
+        # 3. Filter out positions that are within protected regions
+        filtered_positions = []
+        for pos in space_positions:
+            if not any(start <= pos <= end for start, end in protected_regions):
+                filtered_positions.append(pos)
 
-        return space_positions
+        # Sort the positions
+        filtered_positions.sort()
+
+        if ticker == self.buffer_ticker_dict[buffer_name] and len(filtered_positions) > 0:
+            eval_in_emacs("wraplish-insert-spaces", buffer_name, filtered_positions)
+
+        return filtered_positions
 
 if __name__ == "__main__":
     if len(sys.argv) >= 3:
